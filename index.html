@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mertule Maryam International School</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/Mertule-International-App/manifest.json">
     <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#1e3a8a">
 </head>
 <body>
     <div id="splash">
@@ -20,7 +21,11 @@
             <input type="text" id="lname" placeholder="የአባት ስም">
             <input type="tel" id="phone" placeholder="የቴሌ ስልክ (09/07...)">
             <input type="number" id="age" placeholder="እድሜ">
-            <select id="gender"><option value="">ፆታ</option><option value="ወንድ">ወንድ</option><option value="ሴት">ሴት</option></select>
+            <select id="gender">
+                <option value="">ፆታ</option>
+                <option value="ወንድ">ወንድ</option>
+                <option value="ሴት">ሴት</option>
+            </select>
             <select id="role" onchange="checkRole()">
                 <option value="student">ተማሪ</option>
                 <option value="teacher">መምህር</option>
@@ -47,10 +52,11 @@
             
             <div id="content-view" class="hidden">
                 <button onclick="goBack()" style="width:auto; background:#ddd; color:#333;">⬅ ተመለስ</button>
-                <h4 id="title"></h4>
+                <h4 id="title" style="margin-top:10px;"></h4>
                 <div id="list"></div>
                 <div id="upload-section" class="hidden">
-                    <hr><h5>ፋይል መጫኛ (መምህር/አስተዳደር ብቻ)</h5>
+                    <hr>
+                    <h5>ፋይል መጫኛ (መምህር/አስተዳደር ብቻ)</h5>
                     <input type="file" id="file-input" accept="image/*,video/*,.pdf">
                     <textarea id="text-input" placeholder="ጽሁፍ ይጻፉ..." style="width:100%; height:80px;"></textarea>
                     <button onclick="alert('ፋይሉ ተጭኗል!')">አፕሎድ አድርግ</button>
@@ -58,8 +64,9 @@
             </div>
             
             <div id="admin-panel" class="hidden">
-                <hr><h4>አጠቃላይ ማስታወቂያ ማስተላለፊያ</h4>
-                <textarea id="global-msg" placeholder="ለሁሉም ተማሪዎች የሚደርስ መልዕክት..."></textarea>
+                <hr>
+                <h4>አጠቃላይ ማስታወቂያ ማስተላለፊያ</h4>
+                <textarea id="global-msg" placeholder="ለሁሉም ተማሪዎች የሚደርስ መልዕክት..." style="width:100%; height:60px;"></textarea>
                 <button onclick="sendNotice()">ማስታወቂያ አስተላልፍ</button>
             </div>
         </div>
