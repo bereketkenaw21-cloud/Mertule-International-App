@@ -1,7 +1,7 @@
 {
   "name": "Mertule Maryam School App",
   "short_name": "Mertule App",
-  "start_url": "./index.html",
+  "start_url": "/Mertule-International-App/index.html",
   "display": "standalone",
   "background_color": "#1e3a8a",
   "theme_color": "#1e3a8a",
