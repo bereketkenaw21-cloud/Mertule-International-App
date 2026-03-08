@@ -1,0 +1,17 @@
+body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+.hidden { display: none !important; }
+#splash { 
+    position: fixed; width: 100%; height: 100vh; 
+    background: linear-gradient(45deg, #1e3a8a, #8b5cf6); 
+    color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000;
+}
+.bereket-text { color: #facc15; font-weight: bold; margin-top: 20px; font-size: 1.2rem; }
+.container { padding: 15px; max-width: 600px; margin: auto; }
+.grade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.card { border-radius: 20px; padding: 25px; color: white; height: 130px; cursor: pointer; text-align: left; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.g9 { background: #2563eb; } .g10 { background: #9333ea; } .g11 { background: #10b981; } .g12 { background: #f59e0b; }
+input, select, button { width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; }
+button { background: #1e3a8a; color: white; font-weight: bold; border: none; cursor: pointer; }
+.media-list { background: white; border-radius: 15px; margin-top: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.media-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
+.admin-notice { background: #fee2e2; border-left: 5px solid #ef4444; padding: 15px; margin-bottom: 15px; border-radius: 8px; }
