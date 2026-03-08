@@ -1,12 +1,13 @@
-// 1. Service Worker ምዝገባ (ኢንስታል እንዲሆን ቁልፉ ይሄ ነው)
+// 1. Service Worker ምዝገባ (GitHub Pages አድራሻ ተስተካክሏል)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
+        // አድራሻው ከሪፖዚቶሪህ ስም ጋር እንዲሄድ ተደርጓል
+        navigator.serviceWorker.register('/Mertule-International-App/sw.js')
             .then(reg => {
                 console.log('Service Worker ተመዝግቧል!', reg);
             })
             .catch(err => {
-                console.log('ምዝገባ አልተሳካም!', err);
+                console.log('ምዝገባ አልተሳካም! አድራሻውን ያረጋግጡ።', err);
             });
     });
 }
@@ -16,7 +17,7 @@ setTimeout(() => {
     const splash = document.getElementById('splash');
     if (splash) splash.classList.add('hidden');
     
-    // ሎግ አውት ካላደረገ በቀጥታ ይገባል
+    // ተጠቃሚው ሎግ አውት ካላደረገ በቀጥታ ወደ ዳሽቦርድ ይገባል
     if(localStorage.getItem('logged') === 'true') {
         showDashboard();
     } else {
@@ -25,7 +26,7 @@ setTimeout(() => {
     }
 }, 4000);
 
-// 3. የመለያ ኮድ ቁጥጥር
+// 3. የመለያ ኮድ ቁጥጥር (ለመምህር እና ለአስተዳዳሪ)
 function checkRole() {
     const role = document.getElementById('role').value;
     const codeInput = document.getElementById('code');
@@ -42,34 +43,48 @@ function login() {
     const role = document.getElementById('role').value;
     const code = document.getElementById('code').value;
     const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
 
-    if(!fname || !phone) { alert("እባክዎ መረጃዎችን ይሙሉ!"); return; }
-
-    if(!(phone.startsWith('09') || phone.startsWith('07')) || phone.length !== 10) {
-        alert("ትክክለኛ የቴሌ ስልክ ብቻ ይጠቀሙ!"); return;
+    if(!fname || !lname || !phone) { 
+        alert("እባክዎ ሁሉንም መረጃዎች በትክክል ይሙሉ!"); 
+        return; 
     }
 
-    if(role === 'teacher' && code !== '121619') { alert("የመምህር ኮድ ስህተት!"); return; }
-    if(role === 'admin' && code !== '12161921') { alert("የአስተዳዳሪ ኮድ ስህተት!"); return; }
+    // የኢትዮ ቴሌኮም ስልክ ቁጥር ማረጋገጫ (09 ወይም 07)
+    if(!(phone.startsWith('09') || phone.startsWith('07')) || phone.length !== 10) {
+        alert("ትክክለኛ የቴሌ ስልክ ብቻ ይጠቀሙ (09... ወይም 07...)!"); 
+        return;
+    }
 
+    // አንተ በፈለግከው መሰረት የተስተካከሉ ኮዶች
+    if(role === 'teacher' && code !== '121619') { 
+        alert("የመምህር መለያ ኮድ ስህተት ነው!"); 
+        return; 
+    }
+    if(role === 'admin' && code !== '12161921') { 
+        alert("የአስተዳዳሪ መለያ ኮድ ስህተት ነው!"); 
+        return; 
+    }
+
+    // መረጃን በስልኩ ሜሞሪ ውስጥ መያዝ (ለኦፍላይን አገልግሎት)
     localStorage.setItem('logged', 'true');
     localStorage.setItem('role', role);
-    localStorage.setItem('userName', fname);
+    localStorage.setItem('userName', fname + " " + lname);
     showDashboard();
 }
 
-// 5. ዋናው ዳሽቦርድ
+// 5. ዋናው ዳሽቦርድ (የክፍል ደረጃዎች)
 function showDashboard() {
     document.getElementById('reg-page').classList.add('hidden');
     document.getElementById('dashboard').classList.remove('hidden');
     const role = localStorage.getItem('role');
     
-    // ለአስተዳዳሪ ብቻ የሚታይ
+    // ለአስተዳዳሪ ብቻ የሚታይ የቁጥጥር ፓናል
     if(role === 'admin') {
         document.getElementById('admin-panel').classList.remove('hidden');
     }
     
-    // ማስታወቂያ ማሳያ
+    // ከአስተዳዳሪ የተላለፈ ማስታወቂያ ካለ ማሳያ
     const savedNotice = localStorage.getItem('broadcast');
     if(savedNotice) {
         const nb = document.getElementById('notice-board');
@@ -78,7 +93,7 @@ function showDashboard() {
     }
 }
 
-// 6. የክፍል እና ትምህርት ዝርዝር
+// 6. የክፍል እና ትምህርት ዝርዝር (2018 Curriculum)
 function showSubjects(grade) {
     document.getElementById('grade-view').classList.add('hidden');
     document.getElementById('content-view').classList.remove('hidden');
@@ -86,6 +101,7 @@ function showSubjects(grade) {
     let list = document.getElementById('list');
     list.innerHTML = '';
     
+    // በክፍል ደረጃ የተለዩ ትምህርቶች
     let subs = grade <= 10 
         ? ['Maths', 'English', 'Biology', 'Chemistry', 'Physics', 'History', 'Geography', 'Amharic', 'Civics', 'Economics'] 
         : ['Natural Stream', 'Social Stream'];
@@ -93,25 +109,27 @@ function showSubjects(grade) {
     subs.forEach(s => {
         let btn = document.createElement('button');
         btn.innerText = s; 
-        btn.className = "subject-btn"; // በ CSS ማሳመሪያ
+        btn.className = "subject-btn";
+        btn.style.textAlign = "left";
+        btn.style.marginBottom = "8px";
         btn.onclick = () => showMedia(s);
         list.appendChild(btn);
     });
 }
 
-// 7. ሚዲያ እና ፋይል ማሳያ
+// 7. ሚዲያ እና ፋይል ማሳያ (ቴሌግራም ስታይል)
 function showMedia(s) {
     document.getElementById('list').innerHTML = `
-        <div class="media-list">
-            <div class="media-item" onclick="alert('PDF በመከፈት ላይ...')">📄 All PDF Files</div>
+        <div class="media-list" style="background:white; border-radius:15px; padding:10px;">
+            <div class="media-item" onclick="alert('PDF በመከፈት ላይ...')">📄 All PDF Files (Offline)</div>
             <div class="media-item" onclick="alert('Video በመታየት ላይ...')">🎬 Video Lessons</div>
-            <div class="media-item">🖼️ Images</div>
-            <div class="media-item">📝 Text Notes</div>
-            <div class="media-item">💬 Discussion Chatbox</div>
+            <div class="media-item" onclick="alert('Images...')">🖼️ Images</div>
+            <div class="media-item" onclick="alert('Notes...')">📝 Text Notes</div>
+            <div class="media-item" onclick="alert('Chat...')">💬 Discussion Chatbox</div>
         </div>
     `;
     const role = localStorage.getItem('role');
-    // መምህር እና አስተዳዳሪ ብቻ ፋይል መጫን ይችላሉ
+    // መምህር እና አስተዳዳሪ ብቻ ፋይል የመጫን ስልጣን አላቸው
     if(role === 'teacher' || role === 'admin') {
         document.getElementById('upload-section').classList.remove('hidden');
     }
@@ -129,15 +147,16 @@ function goBack() {
     }
 }
 
-// 9. ማስታወቂያ መላኪያ
+// 9. የአስተዳዳሪ ማስታወቂያ መላኪያ (Global Broadcast)
 function sendNotice() {
     const msg = document.getElementById('global-msg').value;
     if(!msg) return;
     localStorage.setItem('broadcast', msg);
-    alert("ማስታወቂያው ለሁሉም ተማሪዎች እና መምህራን ተልኳል!");
+    alert("ማስታወቂያው ለሁሉም ተማሪዎች እና መምህራን ደርሷል!");
     location.reload();
 }
 
+// 10. መውጫ (Logout)
 function logout() { 
     localStorage.clear(); 
     location.reload(); 
