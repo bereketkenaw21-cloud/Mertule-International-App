@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mertule Maryam International School</title>
-    <link rel="manifest" href="/Mertule-International-App/manifest.json">
+    
+    <link rel="manifest" href="manifest.json">
+    
     <link rel="stylesheet" href="style.css">
     <meta name="theme-color" content="#1e3a8a">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
     <div id="splash">
@@ -39,6 +44,7 @@
     <div id="dashboard" class="hidden">
         <div class="container">
             <div id="notice-board" class="hidden admin-notice"></div>
+            
             <div id="grade-view">
                 <h3>የክፍል ደረጃዎች (2018 Curriculum)</h3>
                 <div class="grade-grid">
@@ -54,6 +60,7 @@
                 <button onclick="goBack()" style="width:auto; background:#ddd; color:#333;">⬅ ተመለስ</button>
                 <h4 id="title" style="margin-top:10px;"></h4>
                 <div id="list"></div>
+                
                 <div id="upload-section" class="hidden">
                     <hr>
                     <h5>ፋይል መጫኛ (መምህር/አስተዳደር ብቻ)</h5>
@@ -71,6 +78,7 @@
             </div>
         </div>
     </div>
+    
     <script src="app.js"></script>
 </body>
 </html>
