@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mertule Maryam International School</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="splash">
+        <h1 style="text-align:center;">እንኳን ወደ መርጡለ ማሪያም School App በደህና መጣችሁ</h1>
+        <div class="bereket-text">በ በረከት ቀናው የተዘጋጀ</div>
+    </div>
+
+    <div id="reg-page" class="hidden">
+        <div class="container">
+            <h2 style="text-align:center; color:#1e3a8a;">የአባላት ምዝገባ</h2>
+            <input type="text" id="fname" placeholder="ስም">
+            <input type="text" id="lname" placeholder="የአባት ስም">
+            <input type="tel" id="phone" placeholder="የቴሌ ስልክ (09/07...)">
+            <input type="number" id="age" placeholder="እድሜ">
+            <select id="gender"><option value="">ፆታ</option><option value="ወንድ">ወንድ</option><option value="ሴት">ሴት</option></select>
+            <select id="role" onchange="checkRole()">
+                <option value="student">ተማሪ</option>
+                <option value="teacher">መምህር</option>
+                <option value="admin">እርሰ መምህር / አስተዳደር</option>
+            </select>
+            <input type="password" id="code" class="hidden" placeholder="መለያ ኮድ ያስገቡ">
+            <button onclick="login()">ይግቡ</button>
+        </div>
+    </div>
+
+    <div id="dashboard" class="hidden">
+        <div class="container">
+            <div id="notice-board" class="hidden admin-notice"></div>
+            <div id="grade-view">
+                <h3>የክፍል ደረጃዎች (2018 Curriculum)</h3>
+                <div class="grade-grid">
+                    <div class="card g9" onclick="showSubjects(9)"><h2>9</h2><p>Grade 9</p></div>
+                    <div class="card g10" onclick="showSubjects(10)"><h2>10</h2><p>Grade 10</p></div>
+                    <div class="card g11" onclick="showSubjects(11)"><h2>11</h2><p>Grade 11<br>Natural & Social</p></div>
+                    <div class="card g12" onclick="showSubjects(12)"><h2>12</h2><p>Grade 12<br>Natural & Social</p></div>
+                </div>
+                <button onclick="logout()" style="margin-top:20px; background:#ef4444;">ሎግ አውት</button>
+            </div>
+            
+            <div id="content-view" class="hidden">
+                <button onclick="goBack()" style="width:auto; background:#ddd; color:#333;">⬅ ተመለስ</button>
+                <h4 id="title"></h4>
+                <div id="list"></div>
+                <div id="upload-section" class="hidden">
+                    <hr><h5>ፋይል መጫኛ (መምህር/አስተዳደር ብቻ)</h5>
+                    <input type="file" id="file-input" accept="image/*,video/*,.pdf">
+                    <textarea id="text-input" placeholder="ጽሁፍ ይጻፉ..." style="width:100%; height:80px;"></textarea>
+                    <button onclick="alert('ፋይሉ ተጭኗል!')">አፕሎድ አድርግ</button>
+                </div>
+            </div>
+            
+            <div id="admin-panel" class="hidden">
+                <hr><h4>አጠቃላይ ማስታወቂያ ማስተላለፊያ</h4>
+                <textarea id="global-msg" placeholder="ለሁሉም ተማሪዎች የሚደርስ መልዕክት..."></textarea>
+                <button onclick="sendNotice()">ማስታወቂያ አስተላልፍ</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
